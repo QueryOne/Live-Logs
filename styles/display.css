@@ -1,0 +1,110 @@
+/* Positioning */
+#display {
+  position   : absolute;
+  left       : 50%;
+  top        : 15px;
+  height     : calc(100% - 15px - 56px);
+  width      : calc(100% - 7.7% * 2);
+  transform  : translate( -50%, 0% );
+}
+#content {
+  position   : absolute;
+  left       : 0%;
+  top        : 0%;
+  height     : 100%;
+  width      : 100%;
+}
+#display-border-left {
+  position   : absolute;
+  top        : 0%;
+  left       : 0%;
+  height     : 38.2%;
+  width      : 38.2%;
+}
+#display-border-right {
+  position   : absolute;
+  bottom     : 0%;
+  right      : 0%;
+  height     : 38.2%;
+  width      : 38.2%;
+}
+#display-border-left-element {
+  position   : absolute;
+  left       : 0%;
+  top        : 0%;
+  height     : 100%;
+  width      : 1px;
+}
+#display-border-top-element {
+  position   : absolute;
+  left       : 0%;
+  top        : 0%;
+  height     : 1px;
+  width      : 100%;
+}
+#display-border-right-element {
+  position   : absolute;
+  right      : 0%;
+  top        : 0%;
+  height     : 100%;
+  width      : 1px;
+}
+#display-border-bottom-element {
+  position   : absolute;
+  right      : 0%;
+  bottom     : 0%;
+  height     : 1px;
+  width      : 100%;
+}
+
+/* Design */
+#display {
+  background   : rgba(  1, 1, 1, 0.67 );
+  overflow-y   : hidden;
+}
+#content {
+  overflow-y   : scroll;
+}
+#content::-webkit-scrollbar {
+  width        : calc(0.9em - 3px);
+}
+#content::-webkit-scrollbar-track {
+  border       : solid 0.9em transparent;
+}
+#content::-webkit-scrollbar-thumb {
+  border-radius: 0px;
+  border-right : 3px solid rgba( 73, 73, 113, 0.67 ); 
+}
+#display-border-left, #display-border-right {
+  pointer-events: none;
+}
+#display-border-left-element {
+  background : rgb(2,0,36);
+  background : linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(46,46,68,1) 84.8%, rgba(121,193,208,0.15) 100%);
+}
+#display-border-top-element {
+  background : rgb(2,0,36);
+  background : linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(46,46,68,1) 84.8%, rgba(121,193,208,0.15) 100%);
+}
+#display-border-right-element {
+  background : rgb(2,0,36);
+  background : linear-gradient(180deg, rgba(121,193,208,0.15) 0%, rgba(46,46,68,1) 15.2%, rgba(2,0,36,1) 100%);
+}
+#display-border-bottom-element {
+  background : rgb(2,0,36);
+  background : linear-gradient(90deg, rgba(121,193,208,0.15) 0%, rgba(46,46,68,1) 15.2%, rgba(2,0,36,1) 100%);
+}
+
+/* Font */
+#display {
+  font-family: 'Overpass Mono';
+  font-size  : 8pt;
+  color      : rgba( 144, 144, 144, 1.00 );
+  white-space: pre-wrap;
+}
+.sham {
+  color      : rgba( 1, 1, 1, 0.00 );
+}
+.mono {
+  color      : rgba( 67, 67, 67, 1.00 );
+}
