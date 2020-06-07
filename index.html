@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html><meta charset="utf-8">
+ <head><title></title>
+  <link href="https://fonts.googleapis.com/css?family=Playfair+Display|Oswald:300" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Quicksand|Inconsolata|Overpass+Mono:300" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:200|Open+Sans+Condensed:300|Roboto+Mono|Ubuntu+Mono|Roboto|Nanum+Gothic|Didact+Gothic" rel="stylesheet">
+
+  <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
+
+  <link href='./styles/index.css' rel='stylesheet'/>
+  <link href='./styles/hud.terminal.css' rel='stylesheet'/>
+  <link href='./styles/font-styles.css' rel='stylesheet'/>
+
+  <link href='./styles/settings.css' rel='stylesheet'/>
+  <link href='./styles/btn.css' rel='stylesheet'/>
+  <link href='./styles/controls.css' rel='stylesheet'/>
+  <link href='./styles/display.css' rel='stylesheet'/>
+  
+  <script src='./scripts/namegen.js'></script>
+  <script src='./scripts/live-logs.js'></script>
+  <script src='./scripts/scrubber.js'></script>
+  <script src='./scripts/fastdom.js'></script>
+  <script src='./scripts/gzip.min.js'></script>
+  <script src='./scripts/localEncryption.pbkdf2.js'></script>
+ <style>
+ </style>
+ </head>
+ <body>
+  <div id="game"></div>
+  <div id="settings">
+   <div id="settings-background"></div>
+   <div id="settings-content"></div>
+   <div id="portal">
+     <button id="btn"><span></span><span></span><span></span></button>
+     <input id="url" placeholder="url of log"></input>
+     <div id="play-controls">
+       <div class="play-control-element" id="rewind" onclick="LL.rewind();">&Lt;</div>
+       <div class="play-control-element" id="previous" onclick="LL.backward();">&lt;</div>
+       <div class="play-control-element" id="stop" onclick="LL.stop();">&EmptySmallSquare;</div>
+       <div class="play-control-element" id="play" onclick="LL.play();">&rtri;</div>
+       <div class="play-control-element" id="next" onclick="LL.forward();">&gt;</div>
+       <div class="play-control-element" id="fastforward" onclick="LL.fastforward();">&Gt;</div>
+       <div id="play-display"></div>
+     </div>
+   </div>
+   <div id='scrubber'><div id='scrubber-fill'></div></div>
+  </div>
+ </body>
+<script>
+
+window.onload = function() {
+  LL.begin();
+  scrubber.setup();
+
+  /*
+    Errors to fix
+      when clicking BACK from END position, it will double-BACK 
+      scroll on content affecting scrubber;
+  */
+}
+</script>
+</html>
