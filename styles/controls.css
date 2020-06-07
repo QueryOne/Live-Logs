@@ -1,0 +1,100 @@
+#play-controls {
+  position        : absolute;
+  top             : 0%;
+  right           : 100%;
+  width           : 335px;
+  height          : 100%;
+  background      : rgba( 144, 144, 144, 0.02 );
+  background-image: url('../assets/raster.png');
+  border-top-left-radius: 3px;
+}
+.play-control-element {
+  position       : absolute;
+  top            : 4px;
+  height         : 28px;
+  width          : 28px;
+  background     : rgba( 255, 255, 255, 0.11 );
+  background-size: cover;
+  border         : 1px solid rgba(1,1,1,0);
+  cursor         : pointer;
+  user-select    : none;
+}
+.play-control-element {
+  font-family     : 'Oswald';
+  font-size       : 10pt;
+  color           : rgba( 144, 144, 144, 1.00 );
+  line-height     : 24px;
+  text-align      : center;
+  border-radius   : 3px;
+  background-image: url('../assets/raster.png');
+  transition      : all 170ms;
+}
+.play-control-element:hover {
+  background  : rgba( 255, 255, 255, 0.14 );
+  color       : rgba( 201, 201, 201, 1.00 );
+  border      : 1px solid rgba( 255, 255, 255, 0.11 );
+}
+#rewind {
+  left: calc(0% + 3px + (28px + 6px) * 0);
+}
+#previous {
+  left: calc(0% + 3px + (28px + 6px) * 1);
+}
+#stop {
+  left: calc(0% + 3px + (28px + 6px) * 2);
+}
+#play {
+  left: calc(0% + 3px + (28px + 6px) * 3);
+}
+#next {
+  left: calc(0% + 3px + (28px + 6px) * 4);
+}
+#fastforward {
+  left: calc(0% + 3px + (28px + 6px) * 5);
+}
+
+#play {
+  font-size  : 18pt;
+  transition : none;
+  line-height: 25px;
+}
+#play.pause {
+  font-size  : 10pt;
+  line-height: 28px;
+}
+#play-display {
+  position    : absolute;
+  top         : 4px;
+  height      : 28px;
+  line-height : 24px;
+  left        : calc(0% + 3px + (28px + 6px) * 6);
+  width       : calc(100% - 6 * (28px + 6px) - 3px);
+  border      : 0px solid rgba(255,1,1,1);
+  font-family : 'Inconsolata';
+  font-size   : 8pt;
+  color       : rgba( 144, 144, 144, 1.00 );
+  text-align  : center;
+}
+.play-display-muted {
+  color       : rgba( 76, 76, 76, 1.00 );
+}
+
+#scrubber {
+  position  : absolute;
+  width     : 100%;
+  height    : 4px;
+  left      : 0px;
+  bottom    : 44px;
+  background: rgba(34,34,34,0.45);
+  cursor    : pointer;
+  transition: all 95ms;
+}
+#scrubber:hover {
+  background: rgba(45,45,45,1);
+}
+#scrubber-fill {
+  position  :absolute;
+  width     : 0%;
+  height    : 100%;
+  background: rgba(244,175,65,0.67);
+}
