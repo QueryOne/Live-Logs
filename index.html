@@ -117,8 +117,10 @@ window.onload = function() {
     var b = a.match(/(.+?)\=(.*)/);
     var k = b[1];
     var v = b[2];
+   console.log(b)
     ctl[k] = v;
   }
+ console.log(ctl);
   if (uri != '') {
     if (ctl['url']) {
       $('#url').val(ctl['url'])
