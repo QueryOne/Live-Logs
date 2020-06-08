@@ -102,6 +102,12 @@ ui.get = async function() {
 window.onload = function() {
   LL.begin();
   scrubber.setup();
+ 
+  // Read the parameters passed
+  var uri = window.location.href;
+      uri = uri.replace(window.location.origin + window.location.pathname,'');
+  var arg = uri.split('&');
+  console.log(arg)
 
   $('#url').val('https://raw.githubusercontent.com/QueryOne/live-logs-recorded/master/2020.06.08H09.53.25-macabre-porpoise')
   
