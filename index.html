@@ -57,6 +57,9 @@
 
  </body>
 <script>
+ 
+autoGet = true;
+autoShare = true;
 
 ui = typeof ui != 'undefined' ? ui : {}
 
@@ -109,7 +112,10 @@ window.onload = function() {
   var arg = uri.split('&');
   console.log(arg)
 
-  $('#url').val('https://raw.githubusercontent.com/QueryOne/live-logs-recorded/master/2020.06.08H09.53.25-macabre-porpoise')
+  // $('#url').val('https://raw.githubusercontent.com/QueryOne/live-logs-recorded/master/2020.06.08H09.53.25-macabre-porpoise')
+  if (autoGet == true) {
+    ui.get();
+  }
   
   document.getElementById('btn').addEventListener('click', function() {
    if (this.className == 'on') {
@@ -131,7 +137,13 @@ window.onload = function() {
 
   /* log successfully retrieved & parsed */
   $('body').on('live-log-ready', function() {
-    
+    if (autoShare == true) {
+      $.ajax({
+        url: $('#url').val();
+        success: function(e) { console.log(e) };
+        error: function(err) { console.log(err) };
+      })
+    }
   })
   
 
