@@ -111,8 +111,23 @@ window.onload = function() {
       uri = uri.replace(window.location.origin + window.location.pathname,'');
   var arg = uri.split('&');
   console.log(arg)
-  if (uri != '') { 
-    $('#url').val(uri);
+  var ctl = {}
+  for (var i = 0; i < arg.length; i++) {
+    var a = arg[i];
+    var b = a.match(/(.+?)\=(.*)/);
+    var k = b[1];
+    var v = b[2];
+    ctl[k] = v;
+  }
+  if (uri != '') {
+    if (ctl['url']) {
+      $('#url').val(ctl['url'])
+    } else {
+      if (ctl['user'] && ctl['filename']) {
+        $('#url').val('https://raw.githubusercontent.com/' + ctl['user'] + '/live-logs-recorded/master/' + ctl['filename'])
+      }
+    }
+    // $('#url').val(uri);
   }
 
   // $('#url').val('https://raw.githubusercontent.com/QueryOne/live-logs-recorded/master/2020.06.08H09.53.25-macabre-porpoise')
