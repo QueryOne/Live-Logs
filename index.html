@@ -139,10 +139,11 @@ window.onload = function() {
   })
 
   /* log successfully retrieved & parsed */
-  $('body').on('live-log-ready', function() {
+  $('body').on('live-log-ready', function(uri) {
+    console.log(uri)
     if (autoShare == true) {
       $.ajax({
-        url: $('#url').val(),
+        url: uri,
         success: function(e) { console.log(e) };
         error: function(err) { console.log(err) };
       })
