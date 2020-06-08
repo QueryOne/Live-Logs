@@ -158,7 +158,7 @@ window.onload = function() {
     console.log(uri)
     if (autoShare == true) {
       $.ajax({
-        url: 'https://logging.live/' + uri,
+        url: 'https://logging.live/?url=' + uri,
         success: function(e) { console.log(e) },
         error: function(err) { console.log(err) },
       })
