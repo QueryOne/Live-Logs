@@ -5,15 +5,7 @@ LL = (function() {
   var useGZIP = true;
  
   var url = ''
-  url = 'https://raw.githubusercontent.com/QueryOne/live-logs-recorded/master/2020.06.05H16.11.25-chemical-cuttlefish'
-  url = 'https://raw.githubusercontent.com/QueryOne/live-logs-recorded/master/2020.06.05H14.00.17-rich-ocelot'
-  url = 'https://raw.githubusercontent.com/QueryOne/live-logs-recorded/master/2020.06.05H13.57.03-winsome-gnu'
-  url = 'https://raw.githubusercontent.com/QueryOne/live-logs-recorded/master/2020.06.06H08.05.37-luxuriant-gnu'
-  url = 'https://raw.githubusercontent.com/QueryOne/live-logs-recorded/master/2020.06.06H08.58.16-inexpensive-fox'
-  url = 'https://raw.githubusercontent.com/QueryOne/live-logs-recorded/master/2020.06.06H14.53.54-adorable-ocelot'
-  url = 'https://raw.githubusercontent.com/QueryOne/live-logs-recorded/master/2020.06.06H10.25.30-hilarious-gorilla'
-  url = 'https://raw.githubusercontent.com/QueryOne/live-logs-recorded/master/2020.06.07H04.56.51-groovy-ibex'
-  url = 'https://raw.githubusercontent.com/QueryOne/live-logs-recorded/master/2020.06.07H06.28.23-quaint-dolphin'
+  url = 'https://raw.githubusercontent.com/QueryOne/live-logs-recorded/master/2020.06.08H09.53.25-macabre-porpoise'
 
   var lpad = function(str, len, char) {
     if (typeof str == "number") { str = str.toString() }
@@ -45,17 +37,6 @@ LL = (function() {
         t.msecs = msecs
         t.parsed = lpad(hours,2,'0') + ':' + lpad(mins,2,'0') + ':' + lpad(secs,2,'0')
     return t }
- 
-  var draw = function() {
-    var str = `
-     <div id="display">
-      <div id="content"></div>
-      <div id="display-border-left"><div id="display-border-left-element"></div><div id="display-border-top-element"></div></div>
-      <div id="display-border-right"><div id="display-border-right-element"></div><div id="display-border-bottom-element"></div></div>
-     </div>
-    `
-    $('body').append(str)
-  }
  
   var estimateLine = function() {
     $('#content').append('<div id="dummy">A</div>');
@@ -126,11 +107,13 @@ LL = (function() {
 
   var retrieve = async function(url) {
     var c = await $.ajax({ url: url,
-             type: 'GET',
-             error: function(e,f,g) {
-               console.log(e); console.log(f); console.log(g);
-             }
-           });
+        type: 'GET',
+        error: function(e,f,g) {
+          console.log(e); console.log(f); console.log(g);	
+        }
+      });
+      buffer = [];
+      map = [];
     
     var record;
     if (useGZIP) {
@@ -142,7 +125,6 @@ LL = (function() {
       record = JSON.parse(c);
     }
     meta = record.meta;
-console.log(record)
     
     for (var i = 0; i < record.payload.length; i++) {
       var packet = record.payload[i]
@@ -163,10 +145,11 @@ console.log(record)
     
     await render()
     await calculate()
+    $('body').trigger('live-log-ready')
     
   }
 
-
+  /* Playback */
   var playback = {currentPacket: 0, currentTime: 0, currentIndex: 0}
 
   playback.rewind = function() { delete playback._start; playback.stepTo(0); }
@@ -325,15 +308,17 @@ console.log(record)
   }
   
   var begin = function() {
-    $('#url').val(url);
-    
-    draw();
-    retrieve(url);
-
     behaviours();
+    
+    // $('#url').val(url);
+    // retrieve(url);
   }
 
   var behaviours = function() {
+    /* log successfully retrieved & parsed */
+    $('body').on('live-log-ready', function() {
+      
+    })
     /* scrubber */
     $('body').on('scrubber-interact', function(e,v) {
       var time = v * duration;
@@ -341,16 +326,12 @@ console.log(record)
       playback.stepToTime(time, suppress);
       playback.forward();
     })
-
-    $('#content').scroll(function(e) {
-      
-    })
   }
 
-
   return {
-    begin  : begin,
-    display: display,
+    begin   : begin,
+    display : display,
+    retrieve: retrieve,
 
     backward   : playback.backward,
     fastforward: playback.fastforward,
