@@ -8,31 +8,40 @@
   <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
 
   <link href='./styles/index.css' rel='stylesheet'/>
-  <link href='./styles/hud.terminal.css' rel='stylesheet'/>
-  <link href='./styles/font-styles.css' rel='stylesheet'/>
 
   <link href='./styles/settings.css' rel='stylesheet'/>
+  <link href='./styles/url.css' rel='stylesheet'/>
   <link href='./styles/btn.css' rel='stylesheet'/>
   <link href='./styles/controls.css' rel='stylesheet'/>
   <link href='./styles/display.css' rel='stylesheet'/>
-  
+
   <script src='./scripts/namegen.js'></script>
   <script src='./scripts/live-logs.js'></script>
   <script src='./scripts/scrubber.js'></script>
   <script src='./scripts/fastdom.js'></script>
   <script src='./scripts/gzip.min.js'></script>
   <script src='./scripts/localEncryption.pbkdf2.js'></script>
+
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.12.0/d3.min.js"
+    crossorigin="anonymous"></script>
  <style>
  </style>
  </head>
  <body>
-  <div id="game"></div>
+  <div id="background"></div>
+     <div id="display">
+      <div id="content"></div>
+      <div id="display-border-left"><div id="display-border-left-element"></div><div id="display-border-top-element"></div></div>
+      <div id="display-border-right"><div id="display-border-right-element"></div><div id="display-border-bottom-element"></div></div>
+     </div>
   <div id="settings">
    <div id="settings-background"></div>
    <div id="settings-content"></div>
    <div id="portal">
      <button id="btn"><span></span><span></span><span></span></button>
      <input id="url" placeholder="url of log"></input>
+     <div id="url-get" onclick="ui.get();">get</div>
      <div id="play-controls">
        <div class="play-control-element" id="rewind" onclick="LL.rewind();">&Lt;</div>
        <div class="play-control-element" id="previous" onclick="LL.backward();">&lt;</div>
@@ -45,24 +54,96 @@
    </div>
    <div id='scrubber'><div id='scrubber-fill'></div></div>
   </div>
+
  </body>
 <script>
 
+ui = typeof ui != 'undefined' ? ui : {}
+
+ui.timeout = null;
+ui.toExecute = null;
+
+ui.wrap = function(time, func) {
+  if (typeof ui.toExecute == 'function') { ui.toExecute() };
+  clearTimeout(ui.timeout);
+  ui.timeout = setTimeout(func, 3000);
+}
+
+ui.get = async function() {
+  var url = $('#url').val();
+  var classes = document.getElementById('url-get').className;
+  var c = classes.split(/\s+/);
+
+  if (url == '') {
+    $('#url').attr('placeholder','need valid url').addClass('error');
+    ui.wrap(3000, function() { 
+      $('#url').attr('placeholder','url of log').removeClass('error'); 
+      ui.toExecute = null; 
+    })
+  } else if (classes == '') {
+    $('#url-get').text('...').addClass('processing');
+    try { 
+      await LL.retrieve(url) 
+      $('#url-get').text('done').addClass('complete').removeClass('processing');
+    } catch(err) { 
+      console.log(err)
+      $('#url-get').text('error').addClass('error').removeClass('processing');
+    } finally {
+      ui.wrap(3000, function() { 
+        $('#url-get').text('get').removeClass('complete').removeClass('error');  
+        ui.toExecute = null; 
+      })
+    }
+  } else {
+
+  }
+}
+  
 window.onload = function() {
   LL.begin();
   scrubber.setup();
- 
-  $.ajax({
-    url: 'https://logging.live/',
-    success: function(e) { console.log(e) },
-    error: function(err) { console.log(err) },
+
+  $('#url').val('https://raw.githubusercontent.com/QueryOne/live-logs-recorded/master/2020.06.08H09.53.25-macabre-porpoise')
+  
+  document.getElementById('btn').addEventListener('click', function() {
+   if (this.className == 'on') {
+       this.classList.remove('on')
+       if ($('#settings-content').hasClass('small')) {
+         $('#settings-content').css('top','100%')
+       } else {
+         $('#settings-content').css('bottom','-360px')
+       }
+   } else {
+       this.classList.add('on')
+       if ($('#settings-content').hasClass('small')) {
+         $('#settings-content').css('top','calc(100% - 40%)')
+       } else {
+         $('#settings-content').css('bottom','0%')
+       }
+   }
   })
+
+  /* log successfully retrieved & parsed */
+  $('body').on('live-log-ready', function() {
+    
+  })
+  
 
   /*
     Errors to fix
       when clicking BACK from END position, it will double-BACK 
       scroll on content affecting scrubber;
   */
+
 }
+
+/*
+<!--
+        <input id="password" type="password" placeholder="password"></input>
+        <input id="token" type="password" placeholder="github token"></input>
+        <div id="unlock">unlock</div>
+-->
+  <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+ */
 </script>
 </html>
