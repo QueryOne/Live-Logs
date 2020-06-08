@@ -2,7 +2,7 @@ body {
   background: rgba(1, 1, 1, 1);
   overflow  : hidden;
 }
-#game {
+#background {
   cursor       : crosshair;
   position     : absolute;
   top          : 50%;
@@ -13,6 +13,6 @@ body {
   background   : rgba(  9, 9, 16, 1.00 );
   background-image: url('../assets/raster-field.png');
 }
-#game::-webkit-scrollbar {
+#background::-webkit-scrollbar {
   display: none;
 }
