@@ -53,8 +53,9 @@ window.onload = function() {
   scrubber.setup();
  
   $.ajax({
-    url: 'https://us-central1-live-logs.cloudfunctions.net/api?url=wolf',
+    url: 'http://206.81.5.195/',
     success: function(e) { console.log(e) },
+    error: function(err) { console.log(err) },
   })
 
   /*
