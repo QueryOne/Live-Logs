@@ -145,7 +145,7 @@ LL = (function() {
     
     await render()
     await calculate()
-    $('body').trigger('live-log-ready')
+    $('body').trigger('live-log-ready', url)
     
   }
 
