@@ -157,8 +157,10 @@ window.onload = function() {
   $('body').on('live-log-ready', function(uri) {
     console.log(uri)
     if (autoShare == true) {
+      var url = window.location.href;
+          url = url.replace(window.location.origin + window.location.pathname,'');
       $.ajax({
-        url: 'https://logging.live/?url=' + uri,
+        url: 'https://logging.live/' + url,
         success: function(e) { console.log(e) },
         error: function(err) { console.log(err) },
       })
