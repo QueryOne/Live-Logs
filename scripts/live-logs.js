@@ -118,7 +118,7 @@ LL = (function() {
     var record;
     if (useGZIP) {
       var str = '';
-      record = gzip.unzip(JSON.parse('[' + c + ']'));
+      record = gzip.unzip(JSON.parse('[' + c + ']'), {bypass:true});
       for (var i = 0; i < record.length; i++) { str += String.fromCharCode(record[i]) };
       record = JSON.parse(str)
     } else {
