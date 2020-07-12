@@ -119,7 +119,9 @@ LL = (function() {
     if (useGZIP) {
       var str = '';
       record = gzip.unzip(JSON.parse('[' + c + ']'), {bypass:true});
+      console.log(record)
       for (var i = 0; i < record.length; i++) { str += String.fromCharCode(record[i]) };
+      console.log(str)
       record = JSON.parse(str)
     } else {
       record = JSON.parse(c);
